@@ -47,7 +47,7 @@ object RetrofitHiltModule {
             .create(StationsRetrofitService::class.java)
 
     }
-
+@Singleton
     @Provides
     fun provideStationsDataSource(stationsService: StationsRetrofitService) =
         StationsRetrofitDataSource(stationsService, Dispatchers.IO)
