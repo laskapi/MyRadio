@@ -11,14 +11,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.laskapi.myradio.data.MirrorsRepository
+import com.laskapi.myradio.data.StationHeader
 import com.laskapi.myradio.room.Database
 import com.laskapi.myradio.ui.RootComposable
+import com.laskapi.myradio.ui.SearchScreen
 import com.laskapi.myradio.ui.theme.MyRadioTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -70,11 +77,5 @@ fun Greeting(name: String, mirrorsRepo: MirrorsRepository,database: Database,
     }
 }
 
-/*
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview(dnsResolver: StationsDnsResolver) {
-    MyRadioTheme {
-        Greeting("Android", dnsResolver)
-    }
-}*/
+
+

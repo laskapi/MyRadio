@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,16 +35,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onKeyEvent
 
 
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.laskapi.myradio.TAG
 import com.laskapi.myradio.data.StationHeader
+import com.laskapi.myradio.ui.theme.MyRadioTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,11 +61,9 @@ fun SearchScreen(
     var text by rememberSaveable { mutableStateOf("") }
 
     Column {
-        Surface(//modifier=Modifier.padding(8.dp),
-//    shadowElevation = 5.dp,
-            // shape = RoundedCornerShape(25.dp),
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 3.dp
+        Box(
+            modifier=Modifier.background(color= MaterialTheme.colorScheme.primary)
+                .fillMaxWidth(),
         ) {
 
             OutlinedTextField(
@@ -72,10 +76,11 @@ fun SearchScreen(
 
                 placeholder = { Text("type to search") },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-
+colors = OutlinedTextFieldDefaults.colors().copy(unfocusedContainerColor = MaterialTheme
+    .colorScheme.background, focusedContainerColor = MaterialTheme.colorScheme.background),
                 modifier = Modifier
+                    .align(Alignment.Center)
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
                     .padding(8.dp)
                     .onKeyEvent {
                         if (
@@ -90,7 +95,8 @@ fun SearchScreen(
 
             )
 }
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(modifier = Modifier.fillMaxSize().background(color = MaterialTheme
+                .colorScheme.surfaceContainer),) {
                 items(stationsList) { item ->
                     StationItem(item)
                 }
@@ -98,3 +104,12 @@ fun SearchScreen(
         }
     }
 
+
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    MyRadioTheme {
+        SearchScreen( MutableStateFlow<List<StationHeader>>(emptyList()).asStateFlow(),{})
+    }
+}
