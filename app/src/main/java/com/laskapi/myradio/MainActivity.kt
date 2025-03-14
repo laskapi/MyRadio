@@ -1,32 +1,15 @@
 package com.laskapi.myradio
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.laskapi.myradio.data.MirrorsRepository
-import com.laskapi.myradio.data.StationHeader
-import com.laskapi.myradio.room.Database
 import com.laskapi.myradio.ui.RootComposable
-import com.laskapi.myradio.ui.SearchScreen
 import com.laskapi.myradio.ui.theme.MyRadioTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -54,7 +37,13 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+
+
+
+
 }
+/*
 
 @Composable
 fun Greeting(name: String, mirrorsRepo: MirrorsRepository,database: Database,
@@ -72,10 +61,11 @@ fun Greeting(name: String, mirrorsRepo: MirrorsRepository,database: Database,
             if (BuildConfig.DEBUG) {
                 database.clearAllTables();
             }
-       //     Log.d(TAG, mirrorsRepo.getMirror())
+            Log.d(TAG, mirrorsRepo.getMirror())
              }.await()
     }
 }
 
 
 
+*/

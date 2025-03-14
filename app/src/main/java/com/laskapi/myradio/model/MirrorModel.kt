@@ -1,10 +1,10 @@
-package com.laskapi.myradio.room
+package com.laskapi.myradio.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "mirrors")
-data class Mirror(
+data class MirrorModel(
     @PrimaryKey(autoGenerate = true) val id:Int=0,
     val address:String?
 )

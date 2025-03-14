@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+const val DB_NAME="radioDatabase"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -22,12 +23,18 @@ object RetrofitHiltModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext app: Context) =
-        Room.databaseBuilder(app, Database::class.java, "radioDatabase").build()
-
+    fun provideDatabase(@ApplicationContext ctx: Context): Database
+        {
+          //  ctx.deleteDatabase(DB_NAME)
+           return Room.databaseBuilder(ctx, Database::class.java, DB_NAME).build()
+        }
     @Singleton
     @Provides
     fun provideMirrorDao(db: Database) = db.getMirrorDao()
+
+    @Singleton
+    @Provides
+    fun provideFavoritesDao(db:Database)=db.getFavoriteDao()
 
    /* @Provides
     @Named("mirrorUrl")
@@ -37,7 +44,7 @@ object RetrofitHiltModule {
 
 
     @Provides
-    fun provideRetrofitStationsService(mirrorsProvider: MirrorsProvider):
+    fun provideStationsRetrofitService(mirrorsProvider: MirrorsProvider):
 
             StationsRetrofitService {
         return Retrofit.Builder()
