@@ -34,53 +34,60 @@ import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreenWithSearchBarUnused(stations: StateFlow<List<StationModel>>, getStations:
-    (String)
-->
-Unit) {
+fun SearchScreenWithSearchBarUnused(
+    stations: StateFlow<List<StationModel>>, getStations: (String) -> Unit
+) {
     val stationsList by stations.collectAsStateWithLifecycle()
 
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
 
     Column {
-        SearchBar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .onKeyEvent {
-                    if (
-                        it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
-                        getStations(text)
-                        Log.d(TAG, "Typing enter")
-                        return@onKeyEvent true
-                    }
-                    return@onKeyEvent false
+        SearchBar(modifier = Modifier
+            .fillMaxWidth()
+            .onKeyEvent {
+                if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    getStations(text)
+                    Log.d(TAG, "Typing enter")
+                    return@onKeyEvent true
                 }
-                .semantics { traversalIndex = 0f },
-            inputField = {
-                SearchBarDefaults.InputField(
-                    query = text,
-                    onQueryChange = {
-                        //      getStations(it)
-                        text = it
-                    },
-                    onSearch = { expanded = false },
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
-                    placeholder = { Text("search for radio") },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                    trailingIcon = { Icon(Icons.Default.MoreVert, contentDescription = null) },
+                return@onKeyEvent false
+            }
+            .semantics { traversalIndex = 0f }, inputField = {
+            SearchBarDefaults.InputField(
+                query = text,
+                onQueryChange = {
+                    //      getStations(it)
+                    text = it
+                },
+                onSearch = { expanded = false },
+                expanded = expanded,
+                onExpandedChange = { expanded = it },
+                placeholder = { Text("search for radio") },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                trailingIcon = { Icon(Icons.Default.MoreVert, contentDescription = null) },
 
-                    )
-            },
-            expanded = expanded,
-            onExpandedChange = { expanded = false/*it*/ }
-        ) {}
+                )
+        }, expanded = expanded, onExpandedChange = { expanded = false/*it*/ }) {}
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(stationsList) { item ->
-   //             StationItem(item, {})
+            items(stationsList) { station ->
+                SearchStationItem(station,true
+/*                    favoritesList.contains(station)*/,
+                    {
+                        /*  viewModel
+                              .selectStation(station)*/
+                    },
+                    { /*viewModel.addToFavorites(station)*/ },
+                    { /*viewModel.removeFromFavorites(station) */}
+
+                )
             }
+
+
+            //         items(stationsList) { item ->
+            //             StationItem(item, {})
+            //           }
 
         }
 

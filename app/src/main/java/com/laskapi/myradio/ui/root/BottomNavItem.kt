@@ -1,4 +1,4 @@
-package com.laskapi.myradio.ui
+package com.laskapi.myradio.ui.root
 
 import android.content.Context
 import com.laskapi.myradio.R

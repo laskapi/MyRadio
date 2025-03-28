@@ -66,6 +66,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.test.espresso:espresso-core:3.6.1")
+    implementation("androidx.media3:media3-exoplayer-hls:1.5.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
@@ -118,6 +119,8 @@ dependencies {
     implementation ("androidx.media3:media3-session:1.5.1")
 
     implementation ("androidx.appcompat:appcompat:1.7.0")
+//jetpack datastore
+    implementation ("androidx.datastore:datastore-preferences:1.1.3")
 }
 /*
 

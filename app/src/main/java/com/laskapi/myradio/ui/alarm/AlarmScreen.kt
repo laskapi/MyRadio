@@ -1,6 +1,5 @@
-package com.laskapi.myradio.ui
+package com.laskapi.myradio.ui.alarm
 
-import androidx.compose.foundation.content.MediaType.Companion.Text
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 

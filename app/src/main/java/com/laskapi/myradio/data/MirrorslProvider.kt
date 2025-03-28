@@ -13,13 +13,13 @@ class MirrorsProvider @Inject constructor() {
     private var mirrors: ArrayList<MirrorModel>? = null
 
     fun getMirror(): MirrorModel? {
-   //     return MirrorModel(address = "https://nl1.api.radio-browser.info")
+        //     return MirrorModel(address = "https://nl1.api.radio-browser.info")
 
         if (mirrors == null) {
             mirrors = fetchMirrors().let { ArrayList(it) }
         }
 
-        Log.d(TAG, "Here is MirrorsProvider - I got these mirrors: "+mirrors.toString())
+        Log.d(TAG, "Here is MirrorsProvider - I got these mirrors: " + mirrors.toString())
         var result: MirrorModel? = null
         result = mirrors?.random()
         mirrors?.remove(result)
@@ -28,8 +28,11 @@ class MirrorsProvider @Inject constructor() {
 
 
     private fun fetchMirrors(): List<MirrorModel> {
+
         return InetAddress.getAllByName(HOST).map {
             MirrorModel(address = "https://" + it.canonicalHostName)
         }
+
     }
+
 }

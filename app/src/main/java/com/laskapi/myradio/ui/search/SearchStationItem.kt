@@ -33,14 +33,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.laskapi.myradio.R
 import com.laskapi.myradio.model.StationModel
-import kotlinx.coroutines.Job
 
 
 @Composable
 fun SearchStationItem(
     stationModel: StationModel,
     isFavorite: Boolean,
-    selectStation: (String) -> Unit,
+    selectStation: () -> Unit,
     addToFavorites:
         () -> Unit,
     removeFromFavorites: () -> Unit
@@ -49,7 +48,7 @@ fun SearchStationItem(
         modifier = Modifier
             //    .height(IntrinsicSize.Min)
             .padding(6.dp)
-            .clickable { selectStation(stationModel.url) },
+            .clickable { selectStation() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
@@ -84,14 +83,12 @@ fun SearchStationItem(
 
             Spacer(Modifier.weight(0.1f))
 
-            var favorite by remember { mutableStateOf(isFavorite) }
             Button(
                 onClick = {
-                    favorite = !favorite
-                    if (favorite) {
-                        addToFavorites()
-                    } else {
+                    if (isFavorite) {
                         removeFromFavorites()
+                    } else {
+                        addToFavorites()
                     }
                 },
                 shape = CircleShape,
@@ -103,7 +100,7 @@ fun SearchStationItem(
                 )
 
             ) {
-                if (favorite) {
+                if (isFavorite) {
                     Icon(painterResource(R.drawable.star_24px_filled), "Favorite")
                 } else {
                     Icon(painterResource(R.drawable.star_24px), "Favorite")

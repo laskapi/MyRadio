@@ -15,6 +15,7 @@ import androidx.media3.common.C
 import androidx.media3.common.Player
 import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.CommandButton
 import androidx.media3.session.DefaultMediaNotificationProvider
@@ -65,7 +66,9 @@ class PlaybackService : MediaSessionService() {
 
         val player = ExoPlayer.Builder(this).setName(getString(R.string.app_name))
             .setAudioAttributes(audioAttributes,true)
+            .setHandleAudioBecomingNoisy(true)
             .build()
+
         player.repeatMode = Player.REPEAT_MODE_ALL
 //val am= getSystemService(Context.AUDIO_SERVICE) as AudioManager
   //      am.re
@@ -82,9 +85,15 @@ class PlaybackService : MediaSessionService() {
                   .setIconResId(android.R.drawable.ic_media_next).setSessionCommand(COMMAND_NEXT).build()
       */
 
-        mediaSession = MediaSession.Builder(this, player)
+        mediaSession = MediaSession.Builder(this, player)/*.setCallback(
+            object :MediaSession.Callback{
+
+            }
+        )           */
+
             //          .setCustomLayout(ImmutableList.of(previousButton,nextButton)).setCallback
             //          (MyCallback())
+
             .build()
 
         //}
