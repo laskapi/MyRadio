@@ -37,15 +37,12 @@ fun RootComposable(viewModel: MViewModel = viewModel()) {
     val navController = rememberNavController()
     var myError = viewModel.errorMessage.collectAsStateWithLifecycle()
 
-    val controllerState = viewModel.controllerState.collectAsStateWithLifecycle()
-    // val playController=viewModel.playeController.collectAsStateWithLifecycle()
-    /*
+    val controllerState = viewModel.playerController.collectAsStateWithLifecycle()
+     /*
         val selectedNavigationIndex = rememberSaveable {
             mutableIntStateOf(0)
         }
     */
-
-
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.systemBars,
@@ -123,15 +120,14 @@ fun RootComposable(viewModel: MViewModel = viewModel()) {
                 }
 
                 controllerState.value?.let {
-                    PlayerBar(
-                        modifier = Modifier.fillMaxWidth(0.98f),
+                    PlayerBar(it)
+                    /*     modifier = Modifier.fillMaxWidth(0.98f),
                         viewModel.playerState,
                         togglePlay = { viewModel.togglePlay() },
                         previous = { viewModel.playPrevious() },
                         next = { viewModel.playNext() },
-                        it
-                    )
-                    //   PlayerViewComposable(playController.value)
+                        it.metaDataList)*/
+
                 }
             }
 

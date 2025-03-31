@@ -31,6 +31,13 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         }
     }
 
+    suspend fun putString(key: String, value: String) {
+        val preferencesKey = stringPreferencesKey(key)
+        context.dataStore.edit { preferences ->
+            preferences[preferencesKey] = value
+        }
+    }
+
     suspend fun getInt(key: String): Flow<Int?> =
         withContext(Dispatchers.IO) {
             context.dataStore.data.catch {
@@ -40,5 +47,22 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
                 preferences[preferencesKey]
             }
         }
+
+
+    suspend fun getString(key: String): Flow<String?> =
+        withContext(Dispatchers.IO) {
+            context.dataStore.data.catch {
+                emit(emptyPreferences())
+            }.map { preferences ->
+                val preferencesKey = stringPreferencesKey(key)
+                preferences[preferencesKey]
+            }
+        }
+
+
+
+
+
+
 }
 

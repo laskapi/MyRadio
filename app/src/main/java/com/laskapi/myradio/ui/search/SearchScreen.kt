@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -33,15 +32,14 @@ import com.laskapi.myradio.ui.root.BottomNavItem
 import com.laskapi.myradio.viewmodel.MViewModel
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(viewModel: MViewModel) {
 
     val stationsList by viewModel.stations.collectAsStateWithLifecycle()
     val favoritesList by viewModel.favorites.collectAsStateWithLifecycle()
-    var text by rememberSaveable { mutableStateOf("") }
+    var searchText by rememberSaveable { mutableStateOf("") }
     val lazyListState = rememberLazyListState()
-    val coroutineSope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
     Column {
         Box(
@@ -54,12 +52,12 @@ fun SearchScreen(viewModel: MViewModel) {
 
             TextField(
                 singleLine = true,
-                value = text,
+                value = searchText,
                 onValueChange = {
-                    coroutineSope.launch {
-                        text = it
+                    coroutineScope.launch {
+                        searchText = it
                         lazyListState.scrollToItem(0)
-                        viewModel.getStations(text)
+                        viewModel.getStations(searchText)
 
                     }
                 },
